@@ -12,7 +12,7 @@ class SnakeTest {
 
     @Test
     @DisplayName("end tail at empty snake")
-    void addPieceAtTail() {
+    void addPieceAtTail_empty() {
         Snake snake = new Snake();
         Position pos = new Position(1, 1);
         Food food = new Food(FoodType.BANANA, 10);
@@ -27,7 +27,39 @@ class SnakeTest {
     }
 
     @Test
-    void getPieceAtPos() {
+    @DisplayName("getPieceAtPos - snake is not at position (simple)")
+    void getPieceAtPos_simple() {
+        Position test_pos = new Position(10, 10);
+        Snake snake = new Snake();
+
+        assertThat(snake.getPieceAtPos(test_pos)).usingRecursiveComparison().isEqualTo(null);
+    }
+
+    @Test
+    @DisplayName("getPieceAtPos - snake is not at position")
+    void getPieceAtPos_false() {
+        Position test_pos = new Position(10, 10);
+        Position snake_pos = new Position(1, 50);
+        Food food = new Food(FoodType.BANANA, 10);
+        Snake snake = new Snake();
+
+        snake.addPieceAtTail(snake_pos, food);
+        assertThat(snake.getPieceAtPos(test_pos)).usingRecursiveComparison().isEqualTo(null);
+    }
+
+    @Test
+    @DisplayName("getPieceAtPos - snake is at position")
+    void getPieceAtPos_true() {
+        Position test_pos = new Position(1, 50);
+
+        Position snake_pos = new Position(1, 50);
+        Food food = new Food(FoodType.BANANA, 10);
+        Snake snake = new Snake();
+        snake.addPieceAtTail(snake_pos, food);
+
+        SnakePiece test_piece = new SnakePiece(food, test_pos, null);
+
+        assertThat(test_piece).usingRecursiveComparison().isEqualTo(snake.getPieceAtPos(test_pos));
     }
 
     @Test
@@ -39,7 +71,41 @@ class SnakeTest {
     }
 
     @Test
-    void reverse() {
+    @DisplayName("reverse - more than one piece")
+    void reverse_2_pieces() {
+        Snake snake = new Snake();
+
+        Food food = new Food(FoodType.BANANA, 10);
+        // adding two pieces
+        Position pos1 = new Position(0, 0);
+        snake.addPieceAtTail(pos1, food);
+
+        Position pos2 = new Position(1, 0);
+        snake.addPieceAtTail(pos2, food);
+
+        snake.setDirection(TravelDirection.UP);
+
+        snake.reverse();
+
+        // should not change direction
+        assertEquals(TravelDirection.UP, snake.getDirection());
+
+    }
+
+    @Test
+    @DisplayName("reverse - zero pieces")
+    void reverse_zero_pieces() {
+        Snake snake = new Snake();
+
+        Food food = new Food(FoodType.BANANA, 10);
+
+        snake.setDirection(TravelDirection.UP);
+
+        snake.reverse();
+
+        // should not change direction
+        assertEquals(TravelDirection.DOWN, snake.getDirection());
+
     }
 
     @Test
