@@ -8,7 +8,6 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AdvancedHackTest {
-
     @Test
     @DisplayName("valid - Invalid (contains zero)")
     void invalid_contains_zero() {
