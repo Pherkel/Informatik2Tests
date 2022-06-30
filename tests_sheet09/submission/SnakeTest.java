@@ -67,7 +67,53 @@ class SnakeTest {
     }
 
     @Test
+    @DisplayName("moveTowards - shift snake along")
     void moveTowards() {
+        Food food = new Food(FoodType.BANANA, 10);
+
+        Snake snake = new Snake();
+        // adding a few nodes to the snake
+        snake.addPieceAtTail(new Position(1, 1), food);
+        snake.addPieceAtTail(new Position(2, 1), food);
+        snake.addPieceAtTail(new Position(3, 1), food);
+        snake.setDirection(TravelDirection.UP);
+
+        Position nextPos = snake.computeNextPosition();
+        snake.moveTowards(nextPos, food);
+
+        // expected result
+        Snake test_snake = new Snake();
+        test_snake.addPieceAtTail(new Position(1, 0), food);
+        test_snake.addPieceAtTail(new Position(1, 1), food);
+        test_snake.addPieceAtTail(new Position(2, 1), food);
+        test_snake.setDirection(TravelDirection.UP);
+
+        assertThat(test_snake).usingRecursiveComparison().isEqualTo(snake);
+    }
+
+    @Test
+    @DisplayName("moveTowards - shift snake along")
+    void moveTowards_2() {
+        Food food = new Food(FoodType.BANANA, 10);
+
+        Snake snake = new Snake();
+        // adding a few nodes to the snake
+        snake.addPieceAtTail(new Position(10, 25), food);
+        snake.addPieceAtTail(new Position(11, 25), food);
+        snake.addPieceAtTail(new Position(11, 26), food);
+        snake.setDirection(TravelDirection.LEFT);
+
+        Position nextPos = snake.computeNextPosition();
+        snake.moveTowards(nextPos, food);
+
+        // expected result
+        Snake test_snake = new Snake();
+        test_snake.addPieceAtTail(new Position(9, 25), food);
+        test_snake.addPieceAtTail(new Position(10, 25), food);
+        test_snake.addPieceAtTail(new Position(11, 25), food);
+        test_snake.setDirection(TravelDirection.LEFT);
+
+        assertThat(test_snake).usingRecursiveComparison().isEqualTo(snake);
     }
 
     @Test
