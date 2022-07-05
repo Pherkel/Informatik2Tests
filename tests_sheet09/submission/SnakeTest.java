@@ -65,6 +65,24 @@ class SnakeTest {
     }
 
     @Test
+    @DisplayName("moveTowards - empty snake")
+    void moveTowards_null() {
+
+        Snake snake = new Snake();
+        snake.setDirection(TravelDirection.UP);
+
+        Position nextPos = snake.computeNextPosition();
+        snake.moveTowards(nextPos, null);
+
+        // expected result
+        Snake test_snake = new Snake();
+        //test_snake.addPieceAtTail(new Position(1, 0), food);
+        test_snake.setDirection(TravelDirection.UP);
+
+        assertThat(test_snake).usingRecursiveComparison().isEqualTo(snake);
+    }
+
+    @Test
     @DisplayName("moveTowards - shift snake along (length 1)")
     void moveTowards_0() {
         Food food = new Food(FoodType.BANANA, 10);
