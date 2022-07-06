@@ -1,8 +1,11 @@
 package submission;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.setMaxStackTraceElementsDisplayed;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -119,13 +122,14 @@ class SnakeTest {
         snake.moveTowards(nextPos, food);
 
         // expected result
-        Snake test_snake = new Snake();
+        ISnake test_snake = new Snake();
         test_snake.addPieceAtTail(new Position(1, 0), food);
         test_snake.addPieceAtTail(new Position(1, 1), food);
         test_snake.addPieceAtTail(new Position(2, 1), food);
+        test_snake.addPieceAtTail(new Position(3, 1), food);
         test_snake.setDirection(TravelDirection.UP);
 
-        assertThat(test_snake).usingRecursiveComparison().isEqualTo(snake);
+        Assertions.assertTrue(snake.getHead().equals((SnakePiece) test_snake.getHead()));
     }
 
     @Test
@@ -154,7 +158,7 @@ class SnakeTest {
     }
 
     @Test
-    @DisplayName("reverse - more than one piece")
+    @DisplayName("reverse - direction")
     void reverse_2_pieces() {
         Snake snake = new Snake();
 
@@ -166,13 +170,50 @@ class SnakeTest {
         Position pos2 = new Position(1, 0);
         snake.addPieceAtTail(pos2, food);
 
-        snake.setDirection(TravelDirection.UP);
+        snake.setDirection(TravelDirection.RIGHT);
 
         snake.reverse();
 
         // should not change direction
-        assertEquals(TravelDirection.UP, snake.getDirection());
+        assertEquals(TravelDirection.RIGHT, snake.getDirection());
+    }
 
+    @Test
+    @DisplayName("reverse - listorder")
+    void reverse_listorder() {
+        Snake snake = new Snake();
+
+        Food food = new Food(FoodType.BANANA, 10);
+        // adding two pieces
+        Position pos1 = new Position(0, 0);
+        Position pos2 = new Position(1, 0);
+        Position pos3 = new Position(1, 1);
+        Position pos4 = new Position(1, 2);
+
+        snake.addPieceAtTail(pos1, food);
+        snake.addPieceAtTail(pos2, food);
+        snake.addPieceAtTail(pos3, food);
+        snake.addPieceAtTail(pos4, food);
+        snake.setDirection(TravelDirection.RIGHT);
+
+        snake.reverse();
+
+        Snake expected_snake = new Snake();
+        expected_snake.addPieceAtTail(pos4, food);
+        expected_snake.addPieceAtTail(pos3, food);
+        expected_snake.addPieceAtTail(pos2, food);
+        expected_snake.addPieceAtTail(pos1, food);
+        snake.setDirection(TravelDirection.DOWN);
+
+        ISnakePiece current = snake.getHead();
+        ISnakePiece current_exp = expected_snake.getHead();
+
+        while (current != null && current_exp != null) {
+            assertTrue(current.getPosition().equals(current_exp.getPosition()));
+            assertTrue(current.getNext().equals(current_exp.getNext()));
+            current = current.getNext();
+            current_exp = current_exp.getNext();
+        }
     }
 
     @Test
@@ -192,6 +233,30 @@ class SnakeTest {
     }
 
     @Test
+    void addPieceAtTail_1() {
+        Snake snake = new Snake();
+        snake.addPieceAtTail(new Position(0, 0), new Food(FoodType.STRAWBERRY, 10));
+        snake.addPieceAtTail(new Position(1, 0), new Food(FoodType.BANANA, 11));
+        snake.addPieceAtTail(new Position(2, 0), new Food(FoodType.CABBAGE, 12));
+        snake.addPieceAtTail(new Position(3, 0), new Food(FoodType.STRAWBERRY, 13));
+
+
+        SnakePiece test_snake_head = new SnakePiece(new Food(FoodType.STRAWBERRY, 10), new Position(0, 0),
+                new SnakePiece(new Food(FoodType.BANANA, 11), new Position(1, 0),
+                        new SnakePiece(new Food(FoodType.CABBAGE, 12), new Position(2, 0),
+                                new SnakePiece(new Food(FoodType.STRAWBERRY, 13), new Position(3, 0), null))));
+
+        Assertions.assertTrue(snake.getHead().equals(test_snake_head));
+    }
+
+    @Test
+    @DisplayName("cutTailAt")
     void cutTailAt() {
+        Snake snake = new Snake();
+        snake.addPieceAtTail(new Position(0, 0), new Food(FoodType.STRAWBERRY, 10));
+        snake.addPieceAtTail(new Position(1, 0), new Food(FoodType.BANANA, 11));
+        snake.addPieceAtTail(new Position(2, 0), new Food(FoodType.CABBAGE, 12));
+        snake.addPieceAtTail(new Position(3, 0), new Food(FoodType.STRAWBERRY, 13));
+
     }
 }
