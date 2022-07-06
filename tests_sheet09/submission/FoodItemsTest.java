@@ -70,6 +70,18 @@ class FoodItemsTest {
     }
 
     @Test
+    @DisplayName("spoilAndRemoveOldFood")
     void spoilAndRemoveOldFood() {
+        FoodItems foods = new FoodItems();
+
+        foods.addFood(new Food(FoodType.STRAWBERRY, 10), new Position(0, 0));
+        foods.addFood(new Food(FoodType.BANANA, 14), new Position(0, 0));
+        foods.addFood(new Food(FoodType.CABBAGE, 9), new Position(0, 0));
+
+        foods.spoilAndRemoveOldFood(8);
+        foods.spoilAndRemoveOldFood(11);
+
+        foods.spoilAndRemoveOldFood(110);
+        System.out.println("test finished");
     }
 }
