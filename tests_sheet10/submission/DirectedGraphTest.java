@@ -38,6 +38,7 @@ class DirectedGraphTest {
 
     @Test
     @DisplayName("pathExistsBetween - complex example 1")
+        // Image of the Graph: https://nextcloud.pherkel.de/index.php/s/9mJk7cqi4kqnrZg
     void pathExistsBetween_complex_1() {
         DirectedGraph graph = new DirectedGraph(10);
         graph.connect(4, 0, 7);
@@ -76,6 +77,7 @@ class DirectedGraphTest {
 
     @Test
     @DisplayName("shortestPathBetween - complex example")
+        // Image of the Graph: https://nextcloud.pherkel.de/index.php/s/9mJk7cqi4kqnrZg
     void shortestPathBetween_complex() {
         DirectedGraph graph = new DirectedGraph(10);
         graph.connect(4, 0, 7);
@@ -104,6 +106,40 @@ class DirectedGraphTest {
 
         assertEquals(expectedPath_9_8, actualPath_9_8);
         assertEquals(12.0, graph.costOfPath(actualPath_9_8));
+    }
+
+    @Test
+    @DisplayName("shortestPathBetween - complex example")
+        // Image of the graph: https://nextcloud.pherkel.de/index.php/s/r2GZZAw3FJHKd6k
+    void shortestPathBetween_complex_2() {
+        DirectedGraph graph = new DirectedGraph(10);
+        graph.connect(4, 0, 7.354);
+        graph.connect(0, 6, 1.5);
+        graph.connect(6, 0, 1.5);
+        graph.connect(6, 4, 0.001);
+        graph.connect(6, 9, 3.4);
+        graph.connect(9, 7, 42);
+        graph.connect(9, 2, 3);
+        graph.connect(2, 6, 20.3);
+        graph.connect(2, 5, 200.34);
+        graph.connect(5, 1, 3);
+        graph.connect(1, 8, 3);
+        graph.connect(8, 5, 4.004);
+        graph.connect(5, 3, 50.3224);
+        graph.connect(3, 8, 3);
+        graph.connect(0, 1, 26.5);
+
+        ArrayList<Integer> actualPath_4_1 = graph.shortestPathBetween(4, 1);
+        ArrayList<Integer> expectedPath_4_1 = new ArrayList<>(Arrays.asList(4, 0, 1));
+
+        assertEquals(expectedPath_4_1, actualPath_4_1);
+        assertEquals(33.854, graph.costOfPath(actualPath_4_1));
+
+        ArrayList<Integer> actualPath_9_8 = graph.shortestPathBetween(9, 8);
+        ArrayList<Integer> expectedPath_9_8 = new ArrayList<>(Arrays.asList(9, 2, 6, 0, 1, 8));
+
+        assertEquals(expectedPath_9_8, actualPath_9_8);
+        assertEquals(54.3, graph.costOfPath(actualPath_9_8));
     }
 
     @Test
