@@ -1,22 +1,4 @@
-package submission;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.jupiter.api.Assertions.*;
-
-class SortingAlgorithmsTest {
-
-    @Test
-    @DisplayName("bubbleSort - sheet example")
-    void bubbleSort_sheet() {
-        Person person1 = new Person(1, null, 0);
+Person person1 = new Person(1, null, 0);
         person1.priority = 0.755;
 
         Person person2 = new Person(2, null, 0);
@@ -87,7 +69,7 @@ class SortingAlgorithmsTest {
 
         List<Person> personList = Arrays.asList(person1, person2, person3, person4, person5);
 
-        List<Long> res = Arrays.asList(2L, 1L, 5L, 4L);
+        List<Long> res = Arrays.asList(2L, 1L, 5L, 3L);
 
         SortingAlgorithms sorter = new SortingAlgorithms();
 
@@ -120,4 +102,7 @@ class SortingAlgorithmsTest {
 
         assertEquals(res, sorter.shakerSort(personList, 3));
     }
+
+
+
 }
