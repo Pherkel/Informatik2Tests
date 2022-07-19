@@ -52,7 +52,7 @@ class BinarySearchTest {
         BinarySearch ob = new BinarySearch();
 
         assertEquals(-1, ob.recursiveBinarySearch(array, 0, array.length, key));
-        assertEquals(2, ob.counter);
+        assertEquals(3, ob.counter);
 
     }
 
@@ -64,10 +64,8 @@ class BinarySearchTest {
         // call the iterative binary search
         BinarySearch ob = new BinarySearch();
         List<Integer> indices_not_found = ob.IterativeBinarySearch(array, 70);
-        List<Integer> res_not_found = Arrays.asList(0, 1, 2);
+        List<Integer> res_not_found = List.of(-1);
 
         assertEquals(res_not_found, indices_not_found);
-
-
     }
 }
