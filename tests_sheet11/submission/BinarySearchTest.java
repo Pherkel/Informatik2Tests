@@ -42,3 +42,32 @@ class BinarySearchTest {
         assertEquals(res_1, indices_1);
     }
 }
+ @Test
+    @DisplayName("recursiveBinarySearch - no key found")
+    void recursiveBinarySearch() {
+        double[] array = {0.9936663283720449, 0.9714835319278629, 0.5921970175311418, 0.17129161673684445,
+                0.010987932438898618};
+        double key = 0.914835319278629;
+
+        BinarySearch ob = new BinarySearch();
+
+        assertEquals(-1, ob.recursiveBinarySearch(array, 0, array.length, key));
+        assertEquals(2, ob.counter);
+
+    }
+
+    @Test
+    @DisplayName("iterativeBinarySearch - no key found ")
+    void iterativeBinarySearch() {
+        int[] array = {55, 55, 55, 50, 4, 3, 1, 0, -1, -1, -2};
+
+        // call the iterative binary search
+        BinarySearch ob = new BinarySearch();
+        List<Integer> indices_not_found = ob.IterativeBinarySearch(array, 70);
+        List<Integer> res_not_found = Arrays.asList(0, 1, 2);
+
+        assertEquals(res_not_found, indices_not_found);
+
+      
+    }
+}
