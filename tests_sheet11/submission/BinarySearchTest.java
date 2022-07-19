@@ -12,7 +12,7 @@ class BinarySearchTest {
 
     @Test
     @DisplayName("recursiveBinarySearch - sheet example")
-    void recursiveBinarySearch() {
+    void recursiveBinarySearch_sheet() {
         double[] array = {0.9936663283720449, 0.9714835319278629, 0.5921970175311418, 0.17129161673684445,
                 0.010987932438898618};
         double key = 0.9714835319278629;
@@ -26,7 +26,7 @@ class BinarySearchTest {
 
     @Test
     @DisplayName("iterativeBinarySearch")
-    void iterativeBinarySearch() {
+    void iterativeBinarySearch_sheet() {
         int[] array = {55, 55, 55, 50, 4, 3, 1, 0, -1, -1, -2};
 
         // call the iterative binary search
@@ -41,10 +41,10 @@ class BinarySearchTest {
 
         assertEquals(res_1, indices_1);
     }
-}
- @Test
+
+    @Test
     @DisplayName("recursiveBinarySearch - no key found")
-    void recursiveBinarySearch() {
+    void recursiveBinarySearch_no_key() {
         double[] array = {0.9936663283720449, 0.9714835319278629, 0.5921970175311418, 0.17129161673684445,
                 0.010987932438898618};
         double key = 0.914835319278629;
@@ -58,7 +58,7 @@ class BinarySearchTest {
 
     @Test
     @DisplayName("iterativeBinarySearch - no key found ")
-    void iterativeBinarySearch() {
+    void iterativeBinarySearch_no_key() {
         int[] array = {55, 55, 55, 50, 4, 3, 1, 0, -1, -1, -2};
 
         // call the iterative binary search
@@ -68,6 +68,6 @@ class BinarySearchTest {
 
         assertEquals(res_not_found, indices_not_found);
 
-      
+
     }
 }
